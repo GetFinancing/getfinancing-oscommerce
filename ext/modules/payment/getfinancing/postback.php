@@ -71,7 +71,7 @@
     $msg_history = "GetFinancing Pre-approved the order: " . $orderId;
   }
   if ($updates->status == "approved") {
-    $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID;
+    $set_order_to = DEFAULT_ORDERS_STATUS_ID;
     $msg_history = "GetFinancing Approved the order: " . $orderId;
   }
   if ($updates->status == "rejected") {
@@ -82,7 +82,7 @@
 
   # update order:
 
-  if (empty($set_order_to) == FALSE) {
+  if ($set_order_to!='') {
     # update order status to reflect Completed status and store transaction ID in field cc_number:
     $new_order_status_id = $set_order_to;
     tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $new_order_status_id . "', last_modified = now() where orders_id = '" . $orderId . "'");
