@@ -73,9 +73,9 @@ class getfinancing {
         $this->gf_environment = MODULE_PAYMENT_GETFINANCING_ENVIRONMENT;
 
         if ($this->gf_environment == "Test") {
-            $this->gf_url = 'https://api-test.getfinancing.com:10001/merchant/' . $this->gf_merchant_id . '/requests';
+            $this->gf_url = 'https://api-test.getfinancing.com/merchant/' . $this->gf_merchant_id . '/requests';
         } else {
-            $this->gf_url = 'https://api.getfinancing.com:10000/merchant/' . $this->gf_merchant_id . '/requests';
+            $this->gf_url = 'https://api.getfinancing.com/merchant/' . $this->gf_merchant_id . '/requests';
         }
 
     }
@@ -212,14 +212,14 @@ class getfinancing {
         $gfjs = '
         <script type="text/javascript">
             var onComplete = function() {
-                // Emulates onclick
-                $("#btn_submit").click();
+                x = document.getElementsByName("checkout_confirmation");
+                x[0].submit();
             };
 
             var onAbort = function() {
                 window.location.href="' . $url_ko . '";
             };
-            $("#btn_submit").hide();
+            //$("#btn_submit").hide();
             new GetFinancing("' . $gfResponse->href . '", onComplete, onAbort);
         </script>';
 
