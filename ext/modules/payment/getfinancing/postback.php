@@ -51,9 +51,10 @@
   }
 
   # lookup for the order.
-  $order =tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . $orderId. "'");
+  $order =tep_db_query("select orders_id, orders_status from " . TABLE_ORDERS . " where orders_id = '" . $orderId. "'");
   if ($check = tep_db_fetch_array($order)) {
       $orderIdCheck = (int) $check['orders_id'];
+      $orderStatus = (int) $check['orders_status'];
   }
 
   // If no order matching then exit process.
@@ -67,15 +68,24 @@
   $msg_history = "";
 
   if ($updates->status == "preapproved") {
-    $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_PREAPPROVED_ID;
+    if ($orderStatus == MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID ){
+      //we do not preaprove the order if already approved
+    }else{
+      $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_PREAPPROVED_ID;
+    }
+
     $msg_history = "GetFinancing Pre-approved the order: " . $orderId;
   }
   if ($updates->status == "approved") {
-    $set_order_to = DEFAULT_ORDERS_STATUS_ID;
+    $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID;
     $msg_history = "GetFinancing Approved the order: " . $orderId;
   }
   if ($updates->status == "rejected") {
-    $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_REJECTED_ID;
+    if ($orderStatus == MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID ){
+      //we do not reject the order if already approved
+    }else{
+      $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_REJECTED_ID;
+    }
     $msg_history = "GetFinancing Rejected the order: " . $orderId;
   }
 

@@ -24,6 +24,12 @@ Edit your template and add this line between your HEAD tags:
 NOTE: Normally this template is located at:
 zencart_root/includes/templates/[your_template]/common/
 
+Configure getFinancing Postback url
+----------------------------------
+Log in to the GetFinancing backoffice and set the Postback url to send the messages to:
+
+http://your_site.com/ext/modules/payment/getfinancing/postback.php
+
 Opening the firewall
 --------------------
 Your server needs to be able to communicate with the GetFinancing platform.
