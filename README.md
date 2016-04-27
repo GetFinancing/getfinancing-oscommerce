@@ -19,7 +19,7 @@ Adding additional needed libraries
 ----------------------------------
 
 Edit your template and add this line between your HEAD tags:
-<script type="text/javascript" src="https://partner.getfinancing.com/libs/1.0/getfinancing.js"></script>
+<script type="text/javascript" src="https://cdn.getfinancing.com/libs/1.0/getfinancing.js"></script>
 
 NOTE: Normally this template is located at:
 zencart_root/includes/templates/[your_template]/common/
@@ -66,4 +66,4 @@ Module notes
 
 Compatibility
 -------------
- - This module has been tested with ZenCart version 1.3.9
+ - This module has been tested with Oscommerce version 2.3
