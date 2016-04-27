@@ -68,25 +68,18 @@
   $msg_history = "";
 
   if ($updates->status == "preapproved") {
-    if ($orderStatus == MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID ){
-      //we do not preaprove the order if already approved
-    }else{
+    if ($orderStatus != MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID ){
       $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_PREAPPROVED_ID;
+      $msg_history = "GetFinancing Pre-approved the order: " . $orderId;
     }
-
-    $msg_history = "GetFinancing Pre-approved the order: " . $orderId;
   }
   if ($updates->status == "approved") {
     $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID;
     $msg_history = "GetFinancing Approved the order: " . $orderId;
   }
   if ($updates->status == "rejected") {
-    if ($orderStatus == MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_APPROVED_ID ){
-      //we do not reject the order if already approved
-    }else{
       $set_order_to = MODULE_PAYMENT_GETFINANCING_ORDER_STATUS_POSTBACK_REJECTED_ID;
-    }
-    $msg_history = "GetFinancing Rejected the order: " . $orderId;
+      $msg_history = "GetFinancing Rejected the order: " . $orderId;
   }
 
 
