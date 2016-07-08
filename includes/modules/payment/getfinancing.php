@@ -299,6 +299,7 @@ class getfinancing {
             ),
             'version'          => '1.9',
             'email'            => $order->customer['email_address'],
+            'phone'            => $order->customer['telephone'],
             'merchant_loan_id' => $merchant_loan_id
         );
 
