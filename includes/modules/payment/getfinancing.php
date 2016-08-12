@@ -31,7 +31,7 @@ define('GF_DEBUG', false);
 
 class getfinancing {
 
-    var $module_version = "1.0.0";
+    var $module_version = "1.0.1";
 
     var $code;
     var $title;
@@ -279,6 +279,12 @@ class getfinancing {
         global $order, $messageStack;
 
         $merchant_loan_id = md5(time() . $this->gf_merchant_id . $order->customer['firstname'] . $order->info['total']);
+        $callback_url =dirname(  sprintf(    "%s://%s%s",
+        isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+        $_SERVER['SERVER_NAME'],
+        $_SERVER['REQUEST_URI'])).'/ext/modules/payment/getfinancing/postback.php';
+        $url_ko = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', true, false);
+        $ok_url = trim( tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL', false));
 
         $gf_data = array(
             'amount'           => round($order->info['total'], 2),
@@ -300,9 +306,13 @@ class getfinancing {
             'version'          => '1.9',
             'email'            => $order->customer['email_address'],
             'phone'            => $order->customer['telephone'],
-            'merchant_loan_id' => $merchant_loan_id
+            'merchant_loan_id' => $merchant_loan_id,
+            'postback_url' => $callback_url,
+            'success_url' => $ok_url,
+            'failure_url' => $url_ko,
+            'software_version' =>  $this->module_version,
+            'software_name' => 'zencart'
         );
-
 
         $body_json_data = json_encode($gf_data);
         $header_auth = base64_encode($this->gf_username . ":" . $this->gf_password);
