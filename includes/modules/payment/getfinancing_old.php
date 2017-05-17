@@ -285,21 +285,10 @@ class getfinancing {
         $_SERVER['REQUEST_URI'])).'/ext/modules/payment/getfinancing/postback.php';
         $url_ko = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', true, false);
         $ok_url = trim( tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL', false));
-        $cart_items = array();
-        foreach ($order->products as $p) {
-            $cart_items[] = array(
-                'sku' => $p['name'],
-                'display_name' => $p['name'],
-                'unit_price' => number_format($p['price'], 2),
-                'quantity' => $p['qty'],
-                'unit_tax' => $p['tax'] 
-             );
-        }
 
         $gf_data = array(
             'amount'           => round($order->info['total'], 2),
-            //'product_info'     => $this->_getProductsInfo(),
-            'cart_items'       => $cart_items,
+            'product_info'     => $this->_getProductsInfo(),
             'first_name'       => $order->customer['firstname'],
             'last_name'        => $order->customer['lastname'],
             'shipping_address' => array(
