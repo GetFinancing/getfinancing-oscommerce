@@ -286,6 +286,7 @@ class getfinancing {
         $url_ko = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', true, false);
         $ok_url = trim( tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL', false));
         $cart_items = array();
+
         foreach ($order->products as $p) {
             $cart_items[] = array(
                 'sku' => $p['name'],
@@ -314,6 +315,7 @@ class getfinancing {
                 'state'   => $order->billing['state'],
                 'zipcode' => $order->billing['postcode']
             ),
+            'shipping_amount'  => $order->info['shipping_cost'],
             'version'          => '1.9',
             'email'            => $order->customer['email_address'],
             'phone'            => $order->customer['telephone'],
